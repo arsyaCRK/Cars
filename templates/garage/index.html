@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Add new vehicle{% endblock title %}
+
+{% block content %}
+    <div class="col-md-12">
+        <h4>Add new vehicle</h4>
+
+        <form method="POST" class="post-form" action="/addnew">
+            {% csrf_token %}
+            <div class="container">
+                <br>
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label"></label>
+                    <div class="col-sm-4">
+                        <h3>Input data</h3>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Vehicle num:</label>
+                    <div class="col-sm-4">
+                        {{ form.v_number }}
+                    </div>
+                    <div class="errornote">
+                        {{ form.v_number.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Manufacture:</label>
+                    <div class="col-sm-4">
+                        {{ form.v_manufacture }}
+                    </div>
+                     <div class="row-form-errors">
+                        {{ form.v_manufacture.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Model:</label>
+                    <div class="col-sm-4">
+                        {{ form.v_model }}
+                    </div>
+                    <div class="row-form-errors">
+                        {{ form.v_model.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Left side:</label>
+                    <div class="col-sm-4">
+                        {{ form.v_left_side }}
+                    </div>
+                    <div class="row-form-errors">
+                        {{ form.v_left_side.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Right side:</label>
+                    <div class="col-sm-4">
+                        {{ form.v_right_side }}
+                    </div>
+                    <div class="row-form-errors">
+                        {{ form.v_right_side.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Face side:</label>
+                    <div class="col-sm-4">
+                        {{ form.v_face_side }}
+                    </div>
+                    <div class="row-form-errors">
+                        {{ form.v_face_side.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Back side:</label>
+                    <div class="col-sm-4">
+                        {{ form.v_back_side }}
+                    </div>
+                    <div class="row-form-errors">
+                        {{ form.v_back_side.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Date of prod:</label>
+                    <div class="col-sm-4">
+                        {{ form.v_date_of_prod }}
+                    </div>
+                    <div class="row-form-errors">
+                        {{ form.v_date_of_prod.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Notes:</label>
+                    <div class="col-sm-4">
+                        {{ form.v_note }}
+                    </div>
+                     <div class="row-form-errors">
+                        {{ form.v_note.eerors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label"></label>
+                    <div class="col-sm-4">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
