@@ -1,5 +1,4 @@
 import os.path
-import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -128,6 +127,4 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 AUTH_USER_MODEL = 'garage.CustomUser'
 # IMPORT_EXPORT_USE_TRANSACTIONS = True
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
 
