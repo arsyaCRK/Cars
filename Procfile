@@ -1,1 +1,1 @@
-web: gunicorn garage.wsgi --log-file -
+web: gunicorn cars.wsgi --log-file -
