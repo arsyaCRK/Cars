@@ -80,5 +80,5 @@ class GlassesResource(resources.ModelResource):
         fields = ('id', 'g_damage_type', 'g_glass_num', 'g_damage_side',
                   'g_nak', 'g_mgk', 'g_alk', 'g_sik', 'g_sk', 'g_cik', 'g_kka',
                   'g_kkb', 'g_caka', 'g_cakb', 'g_tik', 'g_crk', 'g_mnk', 'g_fek',
-                  'g_coka', 'g_cuka', 'g_cukb', 'g_znka', 'g_znkb', 'g_srk', 'g_model')
+                  'g_coka', 'g_cuka', 'g_cukb', 'g_znka', 'g_znkb', 'g_srk', 'json_data', 'g_model')
 

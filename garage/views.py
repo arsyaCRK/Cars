@@ -159,6 +159,7 @@ def import_to_glasses(request, id):
 
             imported_data = dataset.load(new_vehicles.read())
             result = glasses_resource.import_data(imported_data, dry_run=True)
+            print(imported_data)
 
             if not result.has_errors():
                 glasses_resource.import_data(dataset, dry_run=False)
