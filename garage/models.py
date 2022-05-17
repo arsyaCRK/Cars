@@ -49,6 +49,7 @@ class Glasses(models.Model):
     g_znka = models.FloatField(default=0, verbose_name='ZnKA')
     g_znkb = models.FloatField(default=0, verbose_name='ZnKB')
     g_srk = models.FloatField(default=0, verbose_name='SrK')
+    json_data = models.JSONField(default=dict, verbose_name='JSON data')
 
     class Meta:
         db_table = "glasses"

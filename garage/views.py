@@ -77,6 +77,11 @@ def update_glass(request, id):
         return render(request, 'garage/edit_glass.html', {'glass': glass, 'form': form})
 
 
+def glass_details(request, id):
+    glass = Glasses.objects.get(id=id)
+    return render(request, 'garage/glass_details.html', {'glass': glass})
+
+
 def destroy_glass(request, id):
     glass = Glasses.objects.get(id=id)
     model_id = glass.g_model_id

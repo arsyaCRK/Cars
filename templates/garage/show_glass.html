@@ -54,6 +54,7 @@
                         <th>Edit</th>
                         <th>Delete</th>
                     {% endif %}
+                    <th>Glass details</th>
                     </thead>
                     <tbody>
                     {% for glass in glasses %}
@@ -98,6 +99,14 @@
                                         data-target="#delete"><span
                                         class="glyphicon glyphicon-trash"></span></a></p></td>
                             {% endif %}
+                            <td><p data-placement="top" data-toggle="tooltip" title="Open"><a
+                                    href="/glassdetails/{{ glass.id }}"
+                                    class="btn btn-info btn-xs"
+                                    data-title="Open"
+                                    data-toggle="modal"
+                                    data-target="#open"><span
+                                    class="glyphicon glyphicon-share-alt"></span></a></p></td>
+                        </tr>
                         </tr>
                     {% endfor %}
                     </tbody>

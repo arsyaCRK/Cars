@@ -27,7 +27,7 @@ class GlassForm(forms.ModelForm):
         fields = ['g_damage_type', 'g_glass_num', 'g_damage_side', 'g_nak', 'g_mgk', 'g_alk',
                   'g_sik', 'g_sk', 'g_cik', 'g_kka', 'g_kkb', 'g_caka', 'g_cakb', 'g_tik',
                   'g_crk', 'g_mnk', 'g_fek', 'g_coka', 'g_cuka', 'g_cukb', 'g_znka', 'g_znkb',
-                  'g_srk', 'g_model']
+                  'g_srk', 'g_model', 'json_data']
         widgets = {'g_damage_type': forms.TextInput(attrs={'class': 'form-control'}),
                    'g_glass_num': forms.NumberInput(attrs={'class': 'form-control'}),
                    'g_damage_side': forms.TextInput(attrs={'class': 'form-control'}),
@@ -51,6 +51,7 @@ class GlassForm(forms.ModelForm):
                    'g_znka': forms.NumberInput(attrs={'class': 'form-control'}),
                    'g_znkb': forms.NumberInput(attrs={'class': 'form-control'}),
                    'g_srk': forms.NumberInput(attrs={'class': 'form-control'}),
+                   'json_data': forms.Textarea(attrs={'class': 'form-control'}),
                    'g_model': forms.NumberInput(attrs={'class': 'form-control', 'readonly': 'True'}),
                    }
 
