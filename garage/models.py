@@ -1,6 +1,8 @@
+import json
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from import_export import resources, fields
+from import_export import resources, fields, widgets
 from import_export.widgets import ForeignKeyWidget
 
 
@@ -49,7 +51,7 @@ class Glasses(models.Model):
     g_znka = models.FloatField(default=0, verbose_name='ZnKA')
     g_znkb = models.FloatField(default=0, verbose_name='ZnKB')
     g_srk = models.FloatField(default=0, verbose_name='SrK')
-    json_data = models.JSONField(default=dict, verbose_name='JSON data')
+    json_data = models.JSONField(verbose_name='JSON data')
 
     class Meta:
         db_table = "glasses"
@@ -68,17 +70,4 @@ class VehicleResource(resources.ModelResource):
     class Meta:
         model = Vehicles
 
-
-class GlassesResource(resources.ModelResource):
-    g_model = fields.Field(
-        column_name='g_model',
-        attribute='g_model',
-        widget=ForeignKeyWidget(Vehicles, 'v_number'))
-
-    class Meta:
-        model = Glasses
-        fields = ('id', 'g_damage_type', 'g_glass_num', 'g_damage_side',
-                  'g_nak', 'g_mgk', 'g_alk', 'g_sik', 'g_sk', 'g_cik', 'g_kka',
-                  'g_kkb', 'g_caka', 'g_cakb', 'g_tik', 'g_crk', 'g_mnk', 'g_fek',
-                  'g_coka', 'g_cuka', 'g_cukb', 'g_znka', 'g_znkb', 'g_srk', 'json_data', 'g_model')
 

@@ -1,9 +1,11 @@
+import openpyxl_dictreader
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, logout, login
 from django.shortcuts import render, redirect
-from garage.models import Vehicles, Glasses, VehicleResource, GlassesResource
 from tablib import Dataset
 
+from garage.models import Vehicles, Glasses, VehicleResource
 from garage.forms import VehicleForm, GlassForm, UserRegistrationForm, UserLoginForm
 
 
@@ -153,22 +155,40 @@ def import_to_vehicles(request):
 def import_to_glasses(request, id):
     if request.method == 'POST':
         try:
-            glasses_resource = GlassesResource()
-            dataset = Dataset()
-            new_vehicles = request.FILES['glasses_file']
+            xls_file = request.FILES['glasses_file']
+            json_data = {'values': []}
+            json_values = {}
+            reader = openpyxl_dictreader.DictReader(xls_file)
+            for rows in reader:
+                json_data['values'].clear()
+                for row_id, row_value in rows.items():
+                    if isinstance(row_id, int):
+                        json_data['values'].append(row_value)
+                    else:
+                        json_data[row_id] = row_value
 
-            imported_data = dataset.load(new_vehicles.read())
-            result = glasses_resource.import_data(imported_data, dry_run=True)
-            print(imported_data)
+                json_values['values'] = json_data['values']
+                vehicle = Vehicles.objects.get(v_number=json_data['g_model'])
+                vehicle_id = vehicle.id
 
-            if not result.has_errors():
-                glasses_resource.import_data(dataset, dry_run=False)
-            else:
-                messages.warning(request, 'Wrong or empty file!')
-                return redirect(f'/glasses/{id}')
+                data_to_db = Glasses.objects.create(id=json_data['id'],  g_damage_type=json_data['g_damage_type'],
+                                                    g_glass_num=json_data['g_glass_num'],
+                                                    g_damage_side=json_data['g_damage_side'],
+                                                    g_nak=json_data['g_nak'], g_mgk=json_data['g_mgk'],
+                                                    g_alk=json_data['g_alk'], g_sik=json_data['g_sik'],
+                                                    g_sk=json_data['g_sk'], g_cik=json_data['g_cik'],
+                                                    g_kka=json_data['g_kka'], g_kkb=json_data['g_kkb'],
+                                                    g_caka=json_data['g_caka'], g_cakb=json_data['g_cakb'],
+                                                    g_tik=json_data['g_tik'], g_crk=json_data['g_crk'],
+                                                    g_mnk=json_data['g_mnk'], g_fek=json_data['g_fek'],
+                                                    g_coka=json_data['g_coka'], g_cuka=json_data['g_cuka'],
+                                                    g_cukb=json_data['g_cukb'], g_znka=json_data['g_znka'],
+                                                    g_znkb=json_data['g_znkb'], g_srk=json_data['g_srk'],
+                                                    g_model_id=vehicle_id, json_data=json_values)
+
+                data_to_db.save()
         except:
             messages.warning(request, 'Wrong or empty file!')
             return redirect(f'/glasses/{id}')
 
     return redirect(f'/glasses/{id}')
-
