@@ -1,9 +1,6 @@
-import json
-
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from import_export import resources, fields, widgets
-from import_export.widgets import ForeignKeyWidget
+from import_export import resources
 
 
 class Vehicles(models.Model):
