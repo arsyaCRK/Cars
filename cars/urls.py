@@ -13,11 +13,12 @@ urlpatterns = [
     path('editglass/<int:id>', views.edit_glass),
     path('updateglass/<int:id>', views.update_glass),
     path('destroyglass/<int:id>', views.destroy_glass),
-    path('glassdetails/<int:id>', views.glass_details),
+    path('vehicledetails/<int:id>', views.vehicle_details),
     re_path(r'^login/$', views.login_func, name='login'),
     re_path(r'^logout/', views.logout_func, name='logout'),
     re_path(r'^register/$', views.register, name='register'),
     path('importvehicles/', views.import_to_vehicles),
+    path('glasses/importvector/<int:id>', views.import_vector),
     path('glasses/importglasses/<int:id>', views.import_to_glasses),
     path('', views.index, name='home'),
 ]

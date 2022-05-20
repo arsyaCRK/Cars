@@ -13,6 +13,7 @@ class Vehicles(models.Model):
     v_back_side = models.BooleanField(default=False, verbose_name='Back side')
     v_note = models.TextField(blank=True, verbose_name='Notes')
     v_date_of_prod = models.DateField(blank=False, verbose_name='Date of prod.')
+    json_data = models.JSONField(null=True, verbose_name='JSON data')
 
     def __str__(self):
         self.v_number = str(self.v_number)
@@ -48,7 +49,6 @@ class Glasses(models.Model):
     g_znka = models.FloatField(default=0, verbose_name='ZnKA')
     g_znkb = models.FloatField(default=0, verbose_name='ZnKB')
     g_srk = models.FloatField(default=0, verbose_name='SrK')
-    json_data = models.JSONField(verbose_name='JSON data')
 
     class Meta:
         db_table = "glasses"

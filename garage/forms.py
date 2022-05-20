@@ -8,7 +8,7 @@ class VehicleForm(forms.ModelForm):
     class Meta:
         model = Vehicles
         fields = ['v_number', 'v_manufacture', 'v_model', 'v_left_side', 'v_right_side', 'v_face_side',
-                  'v_back_side', 'v_note', 'v_date_of_prod']
+                  'v_back_side', 'v_note', 'v_date_of_prod', 'json_data']
         widgets = {'v_number': forms.NumberInput(attrs={'class': 'form-control'}),
                    'v_manufacture': forms.TextInput(attrs={'class': 'form-control'}),
                    'v_model': forms.TextInput(attrs={'class': 'form-control'}),
@@ -18,6 +18,7 @@ class VehicleForm(forms.ModelForm):
                    'v_back_side': forms.CheckboxInput(attrs={'class': 'form-control'}),
                    'v_note': forms.Textarea(attrs={'class': 'form-control'}),
                    'v_date_of_prod': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+                   'json_data': forms.Textarea(attrs={'class': 'form-control'}),
                    }
 
 
@@ -27,7 +28,7 @@ class GlassForm(forms.ModelForm):
         fields = ['g_damage_type', 'g_glass_num', 'g_damage_side', 'g_nak', 'g_mgk', 'g_alk',
                   'g_sik', 'g_sk', 'g_cik', 'g_kka', 'g_kkb', 'g_caka', 'g_cakb', 'g_tik',
                   'g_crk', 'g_mnk', 'g_fek', 'g_coka', 'g_cuka', 'g_cukb', 'g_znka', 'g_znkb',
-                  'g_srk', 'g_model', 'json_data']
+                  'g_srk', 'g_model']
         widgets = {'g_damage_type': forms.TextInput(attrs={'class': 'form-control'}),
                    'g_glass_num': forms.NumberInput(attrs={'class': 'form-control'}),
                    'g_damage_side': forms.TextInput(attrs={'class': 'form-control'}),
@@ -51,7 +52,6 @@ class GlassForm(forms.ModelForm):
                    'g_znka': forms.NumberInput(attrs={'class': 'form-control'}),
                    'g_znkb': forms.NumberInput(attrs={'class': 'form-control'}),
                    'g_srk': forms.NumberInput(attrs={'class': 'form-control'}),
-                   'json_data': forms.Textarea(attrs={'class': 'form-control'}),
                    'g_model': forms.NumberInput(attrs={'class': 'form-control', 'readonly': 'True'}),
                    }
 

@@ -1,3 +1,5 @@
+import traceback
+
 import openpyxl_dictreader
 
 from django.contrib import messages
@@ -79,9 +81,9 @@ def update_glass(request, id):
         return render(request, 'garage/edit_glass.html', {'glass': glass, 'form': form})
 
 
-def glass_details(request, id):
-    glass = Glasses.objects.get(id=id)
-    return render(request, 'garage/glass_details.html', {'glass': glass})
+def vehicle_details(request, id):
+    car = Vehicles.objects.get(id=id)
+    return render(request, 'garage/vehicle_details.html', {'car': car})
 
 
 def destroy_glass(request, id):
@@ -152,26 +154,48 @@ def import_to_vehicles(request):
     return redirect('/')
 
 
+def import_vector(request, id):
+    if request.method == 'POST':
+        try:
+            xls_file = request.FILES['vector_file']
+            json_vector = {'values': []}
+            json_values = {}
+            reader = openpyxl_dictreader.DictReader(xls_file)
+            for rows in reader:
+                json_vector['values'].clear()
+                for row_id, row_value in rows.items():
+                    if isinstance(row_id, int):
+                        json_vector['values'].append(row_value)
+                    else:
+                        json_vector[row_id] = row_value
+
+                json_values['values'] = json_vector['values']
+                vehicle = Vehicles.objects.get(id=json_vector['sample_id'])
+                print(vehicle)
+                vehicle.json_data = json_values
+                vehicle.save()
+        except:
+            print(traceback.format_exc())
+            messages.warning(request, 'Wrong or empty file!')
+            return redirect(f'/glasses/{id}')
+
+        return redirect(f'/glasses/{id}')
+
+
 def import_to_glasses(request, id):
     if request.method == 'POST':
         try:
             xls_file = request.FILES['glasses_file']
-            json_data = {'values': []}
-            json_values = {}
+            json_data = {}
             reader = openpyxl_dictreader.DictReader(xls_file)
             for rows in reader:
-                json_data['values'].clear()
                 for row_id, row_value in rows.items():
-                    if isinstance(row_id, int):
-                        json_data['values'].append(row_value)
-                    else:
-                        json_data[row_id] = row_value
+                    json_data[row_id] = row_value
 
-                json_values['values'] = json_data['values']
                 vehicle = Vehicles.objects.get(v_number=json_data['g_model'])
                 vehicle_id = vehicle.id
 
-                data_to_db = Glasses.objects.create(id=json_data['id'],  g_damage_type=json_data['g_damage_type'],
+                data_to_db = Glasses.objects.create(id=json_data['id'], g_damage_type=json_data['g_damage_type'],
                                                     g_glass_num=json_data['g_glass_num'],
                                                     g_damage_side=json_data['g_damage_side'],
                                                     g_nak=json_data['g_nak'], g_mgk=json_data['g_mgk'],
@@ -184,7 +208,7 @@ def import_to_glasses(request, id):
                                                     g_coka=json_data['g_coka'], g_cuka=json_data['g_cuka'],
                                                     g_cukb=json_data['g_cukb'], g_znka=json_data['g_znka'],
                                                     g_znkb=json_data['g_znkb'], g_srk=json_data['g_srk'],
-                                                    g_model_id=vehicle_id, json_data=json_values)
+                                                    g_model_id=vehicle_id)
 
                 data_to_db.save()
         except:
